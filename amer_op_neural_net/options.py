@@ -102,7 +102,7 @@ def func_geometric_mean(X):
     elif 'Tensor' in X.__class__.__name__:  # tf.Tensor
         d = tf.cast(tf.shape(X)[-1], tf_floattype)
         # return tf.abs(tf.reduce_prod(X, axis=-1, keepdims=True)) ** (1 / d)
-        return tf.reduce_prod(tf.abs(X) ** (1 / d), axis=-1, keepdims=True)
+        return tf.reduce_prod(tf.pow(tf.abs(X), tf.cast(1 / d, tf.float32)), axis=-1, keepdims=True)
 
 
 def func_grad_geometric_mean(X, X_reduced):

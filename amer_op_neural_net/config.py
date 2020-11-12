@@ -34,15 +34,16 @@ global_seed = 347161
 if opt_seed:
     random.seed(global_seed)
     np.random.seed(random.randint(0, 2 ** 32 - 1))
-    tf.reset_default_graph()
-    tf.set_random_seed(random.randint(0, 2 ** 32 - 1))  # tf.set_random_seed should be applied on the graph level!
+    tf.random.set_seed(random.randint(0, 2 ** 32 - 1))  # tf.set_random_seed should be applied on the graph level!
 num_cpus = multiprocessing.cpu_count()
 print(" Number of CPUs: ", num_cpus)
-session_config = tf.ConfigProto(device_count={"CPU": num_cpus},
-                                intra_op_parallelism_threads=num_cpus,
-                                inter_op_parallelism_threads=num_cpus,
-                                allow_soft_placement=True,
-                                log_device_placement=False)
+
+tf.config.set_soft_device_placement(True)
+#session_config = tf.ConfigProto(device_count={"CPU": num_cpus},
+#                                intra_op_parallelism_threads=num_cpus,
+#                                inter_op_parallelism_threads=num_cpus,
+#                                allow_soft_placement=True,
+#                                log_device_placement=False)
 
 ###############################################
 
